@@ -49,7 +49,7 @@ export function Header({ sidebarCollapsed, onToggleSidebar }: HeaderProps) {
 
       {/* Search */}
       <div className="hidden md:flex items-center relative max-w-xs w-full">
-        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+        <Search className="absolute right-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
         <Input placeholder="Search..." className="pl-8 h-9" />
       </div>
 
