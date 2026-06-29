@@ -1,8 +1,8 @@
-import { MainLayout } from "./components/layout/main-layout";
+import { CmsLayout } from "./components/layout/cms-layout";
 
 export default function App() {
   return (
-    <MainLayout>
+    <CmsLayout>
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
@@ -31,6 +31,6 @@ export default function App() {
           ))}
         </div>
       </div>
-    </MainLayout>
+    </CmsLayout>
   );
 }

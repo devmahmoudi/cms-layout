@@ -3,11 +3,11 @@ import { cn, TooltipProvider } from "@devmahmoudi/ui";
 import { Sidebar } from "./sidebar";
 import { Header } from "./header";
 
-interface MainLayoutProps {
+interface CmsLayoutProps {
   children: ReactNode;
 }
 
-export function MainLayout({ children }: MainLayoutProps) {
+export function CmsLayout({ children }: CmsLayoutProps) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
