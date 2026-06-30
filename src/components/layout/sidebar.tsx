@@ -1,5 +1,5 @@
 // src/components/layout/sidebar.tsx
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   cn,
   Button,
@@ -12,11 +12,13 @@ import {
   TooltipTrigger,
 } from "@devmahmoudi/ui";
 import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
-import { mainNavigation, type NavItem } from "../../lib/navigation";
+import type { NavItem } from "../../types";
 
 interface SidebarProps {
   collapsed: boolean;
   onToggle: () => void;
+  navigation: NavItem[];
+  logo?: ReactNode;
 }
 
 function NavItemComponent({
@@ -102,7 +104,12 @@ function NavItemComponent({
   return button;
 }
 
-export function Sidebar({ collapsed, onToggle }: SidebarProps) {
+export function Sidebar({
+  collapsed,
+  onToggle,
+  logo,
+  navigation,
+}: SidebarProps) {
   return (
     <aside
       className={cn(
@@ -119,16 +126,16 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       >
         {!collapsed && (
           <span className="text-lg font-semibold tracking-tight">
-            CMS Admin
+            {logo}
           </span>
         )}
-        {collapsed && <span className="text-lg font-bold">C</span>}
+        {collapsed && (logo ?? <span className="text-lg font-bold">C</span>)}
       </div>
 
       {/* Navigation */}
       <ScrollArea className="flex-1 py-2">
         <nav className="grid gap-1 px-2">
-          {mainNavigation.map((item) => (
+          {navigation.map((item) => (
             <NavItemComponent
               key={item.href}
               item={item}
