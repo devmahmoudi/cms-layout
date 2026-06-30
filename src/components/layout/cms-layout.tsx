@@ -1,26 +1,24 @@
 import { useState, type ReactNode } from "react";
 import { cn, TooltipProvider } from "@devmahmoudi/ui";
-import { Sidebar } from "./sidebar";
+import { Sidebar, type SidebarProps } from "./sidebar";
 import { Header } from "./header";
-import type { NavItem } from "../../types";
 import { defaultNavigation } from "../../lib/default-navigation";
+
+type CmsLayoutSidebarConfig = Omit<SidebarProps, "collapsed" | "onToggle">;
 
 interface CmsLayoutProps {
   children: ReactNode;
-  navigation?: NavItem[];
-  logo?: ReactNode;
+  sidebarConfig?: CmsLayoutSidebarConfig;
   user?: { name: string; email: string; avatar?: string };
 }
 
-export function CmsLayout({
-  children,
-  navigation = defaultNavigation,
-  logo,
-  user,
-}: CmsLayoutProps) {
+export function CmsLayout({ children, sidebarConfig, user }: CmsLayoutProps) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const config: CmsLayoutSidebarConfig = {
+    ...sidebarConfig,
+    navigation: sidebarConfig?.navigation ?? defaultNavigation,
+  };
   console.log(user);
-  
 
   return (
     <TooltipProvider delayDuration={0}>
@@ -28,8 +26,7 @@ export function CmsLayout({
         <Sidebar
           collapsed={sidebarCollapsed}
           onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
-          navigation={navigation}
-          logo={logo}
+          {...config}
         />
         <Header
           sidebarCollapsed={sidebarCollapsed}

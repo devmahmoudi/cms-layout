@@ -14,19 +14,23 @@ import {
 import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import type { NavItem } from "../../types";
 
-interface SidebarProps {
+export interface SidebarProps {
   collapsed: boolean;
   onToggle: () => void;
   navigation: NavItem[];
   logo?: ReactNode;
+  appName?: string;
+  onNavigate?: (item: NavItem) => void;
 }
 
 function NavItemComponent({
   item,
   collapsed,
+  onNavigate,
 }: {
   item: NavItem;
   collapsed: boolean;
+  onNavigate?: (item: NavItem) => void;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -67,6 +71,7 @@ function NavItemComponent({
                 "w-full justify-start gap-2 pl-10",
                 collapsed && "justify-center px-0",
               )}
+              onClick={() => onNavigate?.(child)}
             >
               <child.icon className="h-4 w-4 shrink-0" />
               {!collapsed && <span>{child.title}</span>}
@@ -79,6 +84,7 @@ function NavItemComponent({
 
   const button = (
     <Button
+      onClick={() => onNavigate?.(item)}
       variant="ghost"
       className={cn(
         "w-full justify-start gap-2 px-3",
@@ -108,7 +114,9 @@ export function Sidebar({
   collapsed,
   onToggle,
   logo,
+  appName,
   navigation,
+  onNavigate,
 }: SidebarProps) {
   return (
     <aside
@@ -125,9 +133,7 @@ export function Sidebar({
         )}
       >
         {!collapsed && (
-          <span className="text-lg font-semibold tracking-tight">
-            {logo}
-          </span>
+          <span className="text-lg font-semibold tracking-tight">{appName ?? "Cms Layout"}</span>
         )}
         {collapsed && (logo ?? <span className="text-lg font-bold">C</span>)}
       </div>
@@ -140,6 +146,7 @@ export function Sidebar({
               key={item.href}
               item={item}
               collapsed={collapsed}
+              onNavigate={onNavigate}
             />
           ))}
         </nav>
